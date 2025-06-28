@@ -1,0 +1,33 @@
+body{
+    background-color: rgba(19, 16, 16, 0.767);
+}
+
+input{
+    display: block;
+    margin: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    width: 30%;
+    color: green;
+}
+
+input::placeholder{
+    color: orange;  
+}
+
+button{
+    display: block;
+    border: none;
+    outline: none;
+    margin: 10px;
+    background-color: rgb(30, 92, 192);
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+    width: 25%;
+    transition: background-color 0.3s ease;
+}
+
+button:hover{
+    background-color: rgb(4, 73, 163);
+}
