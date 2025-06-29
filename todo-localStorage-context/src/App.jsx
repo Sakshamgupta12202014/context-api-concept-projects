@@ -14,7 +14,6 @@ function App() {
     //  setTodos((oldTodos) => {
     //   return [{id:Date.now(), ...todo}, ...oldTodos]
     //  })
-
     setTodos((oldTodos) => {
       return [{ ...todo, id: Date.now(), completed: false }, ...oldTodos];
     });
@@ -26,12 +25,14 @@ function App() {
     );
   };
 
+  // deleteTodo had a bug , due to which the delete functionality was not working 
+  // I wrote prevTodo !== id (since prevTodo is an object and we are comparing it with id obviously app will crash)
   const deleteTodo = (id) => {
-    setTodos((prevTodos) => prevTodos.filter((prevTodo) => prevTodo !== id));
+    setTodos((prevTodos) => prevTodos.filter((prevTodo) => prevTodo.id !== id));
   };
 
   const completeTodo = (id) => {
-    // setTodos((prevTodos) => (prevTodos.map((prevTodo) => prevTodo.id === id ? prevTodo.completed === true ? {...prevTodo, completed:false} : {...prevTodo, completed:true} : prevTodo)))
+    // setTodos((prevTodos) => (prevTodos.map((prevTodo) => prevTodo.id   === id ? prevTodo.completed === true ? {...prevTodo, completed:false} : {...prevTodo, completed:true} : prevTodo)))
 
     setTodos((prevTodos) =>
       prevTodos.map((prevTodo) =>
@@ -45,7 +46,10 @@ function App() {
   useEffect(() => {
     // getItem already stored todos from the local storage and store them in todos state variable
     const todos = JSON.parse(localStorage.getItem("todos"));
-    setTodos(todos);
+    
+    if (todos && todos.length > 0) {
+      setTodos(todos)
+    }
   }, []);
 
   // this useEffect will run when any new todo is added or any todo is deleted , cause todos array is added as the dependencies in the useEffect so on change in todos array will run the effect again
@@ -69,7 +73,7 @@ function App() {
           
           <div className="todo-items">
             {todos.map((todo) => (
-              <div key={todo.id}>
+              <div key={todo.id} >
                 <TodoItem todo={todo} />
               </div>
             ))}
