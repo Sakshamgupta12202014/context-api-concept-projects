@@ -25,6 +25,11 @@ export const todoSlice = createSlice({
 
   // action is usefull when you want some values basically that user will pass
   reducers: {
+
+    // Every function inside reducers will be an action that we can dispatch
+    // action.payload will be the value that we will pass while dispatching the action
+    // we will passing arguments while dispatching the action in the form of an object(everything in redux is an object)
+    // so we can access the values using action.payload
     addTodo: (state, action) => {
       // this is the creation of a new Todo it is not added into array yet
       const newTodo = {
@@ -62,7 +67,7 @@ export const todoSlice = createSlice({
       state.todos = state.todos.map((todo) => {
         if (todo.id === id) {
           // same way as we did in context api spread and then update an objects value
-          // this is the way of updating objects
+          // this is the way of updating objects in javascript
           return {
             ...todo,
             isComplete: !todo.isComplete,
@@ -74,9 +79,13 @@ export const todoSlice = createSlice({
   }, // reducers can contain property and functions
 });
 
-// we will use these functionalities individually
+// we will use these functionalities individually , we will be needing these functions in our components
+// so we will export them individually 
 export const { addTodo, removeTodo, updateTodo, toggleComplete } =
   todoSlice.actions;
 
-// this export is for the store
+// this is the reducer that we will use in our store
+// this reducer will be used in store.js file
+// the store will know about the reducers we have in our app
+// so we will export it
 export default todoSlice.reducer;
