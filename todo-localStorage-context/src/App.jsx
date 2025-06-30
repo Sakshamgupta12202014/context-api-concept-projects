@@ -52,7 +52,7 @@ function App() {
     }
   }, []);
 
-  // this useEffect will run when any new todo is added or any todo is deleted , cause todos array is added as the dependencies in the useEffect so on change in todos array will run the effect again
+  // this useEffect will run when any new todo is added or any todo is deleted , cause todos array is added as the dependencies in the useEffect so any change in todos array will run the effect again
 
   useEffect(() => {
     // store new todo in the local storage
