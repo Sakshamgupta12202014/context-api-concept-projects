@@ -1,23 +1,19 @@
 import React, { useState } from "react";
 // useSelector and useDispatch are hooks provided by the react-redux library — which is the official React binding for Redux.
 
-// dispatch kaam ata hai jab tumhe koi action execute krna ho 
+// dispatch kaam ata hai jab tumhe koi action execute krna ho
 import { useDispatch } from "react-redux"; // redux toolkit binding with react through react redux
-import { useSelector } from "react-redux";  // through this method we can access the properties and data stored in store 
+import { useSelector } from "react-redux"; // through this method we can access the properties and data stored in store
 
-import {
-  addTodo,
-  removeTodo,
-  updateTodo,
-  toggleComplete,
-} from "../features/todoSlice";
+import { addTodo } from "../features/todoSlice";
+import Todos from "./Todos";
 
 function AddTodo() {
   const [msg, setMsg] = useState("");
   const dispatch = useDispatch();
 
   // useSelector expects a callback
-  const todos = useSelector((state) => state.todos)
+  const todos = useSelector((state) => state.todos);
 
   const handleSubmit = (e) => {
     if (msg.trim() === "") return; // Avoid adding empty todos
@@ -45,6 +41,7 @@ function AddTodo() {
       backgroundColor: "white",
       border: "none",
       padding: "10px",
+      outline: "none",
       borderRadius: "10px 0px 0px 10px",
       width: "60%",
     },
@@ -55,6 +52,7 @@ function AddTodo() {
       backgroundColor: "green",
       color: "white",
       fontWeight: "600",
+      cursor: "pointer",
     },
     headings: {
       color: "white",
@@ -68,6 +66,7 @@ function AddTodo() {
         <div style={styles.div1}>
           <input
             type="text"
+            placeholder="type message..."
             onChange={(e) => setMsg(e.target.value)}
             value={msg}
             className="todoMsg"
@@ -87,9 +86,11 @@ function AddTodo() {
       <div style={styles.div2}>
         <h4>Your Todos</h4>
         {/* Loop the todos array to render all the todos */}
-        {todos.map((todo, index) => {
-          <div key={todo.id}></div>;
-        })}
+        {todos.map((todo) => (
+          <div key={todo.id}>
+            <Todos todo={todo} />
+          </div>
+        ))}
       </div>
     </>
   );

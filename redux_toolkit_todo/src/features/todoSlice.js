@@ -1,16 +1,9 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
-import store from "../app/store";
 
 // initialState represents the state of the store in the beginning
 // initial state can be an array and an object
 const initialState = {
-  todos: [
-    {
-      id: 1,
-      title: "This is 1st Todo",
-      isComplete: false,
-    },
-  ],
+  todos: [],
 
   // there can be more properties
 };
@@ -44,27 +37,30 @@ export const todoSlice = createSlice({
       state.todos.push(newTodo);
     },
     removeTodo: (state, action) => {
-      const idToDelete = action.payload.id;
+      const id = action.payload.id;
 
-      const newTodosList = state.todos.filter((todo) => todo.id !== idToDelete);
+      state.todos = state.todos.filter((todo) => todo.id !== id);
 
-      state.todos = newTodosList; // overwrite
+      // state.todos = newTodosList; // overwrite
     },
     updateTodo: (state, action) => {
-      const idToUpdate = action.payload.id;
+      const { id, title } = action.payload;
 
       state.todos = state.todos.map((todo) => {
-        if (todo.id === idToUpdate) {
-          return action.payload;
+        if (todo.id === id) {
+          return {
+            ...todo,
+            title: title,
+          };
         }
         return todo;
       });
     },
     toggleComplete: (state, action) => {
-      const idToToggle = action.payload.id;
+      const id = action.payload.id;
 
       state.todos = state.todos.map((todo) => {
-        if (todo.id === idToToggle) {
+        if (todo.id === id) {
           // same way as we did in context api spread and then update an objects value
           // this is the way of updating objects
           return {
