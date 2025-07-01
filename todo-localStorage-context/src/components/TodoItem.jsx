@@ -18,7 +18,7 @@ function TodoItem({ todo }) {
 
   const editTodo = () => {
     updateTodo(todo.id, { ...todo, title: todoMsg });
-    todoRef.current.focus()
+    todoRef.current.focus();
     setIsTodoEditable(false);
   };
 
@@ -47,12 +47,10 @@ function TodoItem({ todo }) {
       {/* two buttons one for edit and one for delete */}
       <button
         onClick={() => {
+          if (todo.completed) return;
 
-          if(todo.completed) return;
-
-          if(isTodoEditable) editTodo();
-
-          else setIsTodoEditable((prev) => !prev)
+          if (isTodoEditable) editTodo();
+          else setIsTodoEditable((prev) => !prev);
         }}
       >
         {isTodoEditable ? "📁" : "✏️"}

@@ -1,23 +1,23 @@
-import React, { useState } from "react";
-// useSelector and useDispatch are hooks provided by the react-redux library — which is the official React binding for Redux.
-
-// dispatch kaam ata hai jab tumhe koi action execute krna ho
-import { useDispatch } from "react-redux"; // redux toolkit binding with react through react redux
-import { useSelector } from "react-redux"; // through this method we can access the properties and data stored in store
-
+import React, { useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { addTodo } from "../features/todoSlice";
 import Todos from "./Todos";
 
 function AddTodo() {
   const [msg, setMsg] = useState("");
+  const [btnText, setBtnText] = useState("Add Todo");
   const dispatch = useDispatch();
-
-  // useSelector expects a callback
   const todos = useSelector((state) => state.todos);
+  const inputRef = useRef(null);
 
   const handleSubmit = (e) => {
     if (msg.trim() === "") return; // Avoid adding empty todos
+
     dispatch(addTodo({ title: msg }));
+
+    if (btnText === "Save Todo") {
+      setBtnText(() => "Add Todo");
+    }
     setMsg("");
   };
   const styles = {
@@ -27,7 +27,7 @@ function AddTodo() {
       justifyContent: "center",
       alignItems: "center",
       margin: "auto",
-      width: "100%",
+      width: "50%",
     },
     div2: {
       display: "flex",
@@ -37,7 +37,7 @@ function AddTodo() {
       margin: "auto",
       width: "100%",
     },
-    input: {
+    inputAddTodo: {
       backgroundColor: "white",
       border: "none",
       padding: "10px",
@@ -45,7 +45,7 @@ function AddTodo() {
       borderRadius: "10px 0px 0px 10px",
       width: "60%",
     },
-    button: {
+    buttonAddTodo: {
       padding: "10px",
       borderRadius: "0px 10px 10px 0px",
       border: "none",
@@ -61,6 +61,8 @@ function AddTodo() {
 
   return (
     <>
+      <h1 style={{ textAlign: "center", color: "white" }}>Todo App</h1>
+      <hr style={{ width: "50%", margin: "auto", color: "white" }} />
       <div style={styles.div2}>
         <h2 style={styles.headings}>Manage Your todos</h2>
         <div style={styles.div1}>
@@ -70,25 +72,26 @@ function AddTodo() {
             onChange={(e) => setMsg(e.target.value)}
             value={msg}
             className="todoMsg"
-            style={styles.input}
+            style={styles.inputAddTodo}
+            ref={inputRef}
           />
 
           <button
-            style={styles.button}
+            style={styles.buttonAddTodo}
             onClick={handleSubmit}
             className="addTodoBtn"
           >
-            Add
+            {btnText}
           </button>
         </div>
       </div>
 
       <div style={styles.div2}>
-        <h4>Your Todos</h4>
+        <h4 style={styles.headings}>Your Todos</h4>
         {/* Loop the todos array to render all the todos */}
         {todos.map((todo) => (
           <div key={todo.id}>
-            <Todos todo={todo} />
+            <Todos todo={todo} inputRef={inputRef} msg={msg} setMsg={setMsg} setBtnText={setBtnText}/>
           </div>
         ))}
       </div>

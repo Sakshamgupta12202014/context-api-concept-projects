@@ -5,16 +5,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./Todos.css";
 
-function Todos({ todo }) {
+function Todos({ todo , msg, inputRef, setMsg, setBtnText}) {
   const [todoMsg, setTodoMsg] = useState(todo.title);
   const [isTodoEditable, setIsTodoEditable] = useState(false);
   const todoRef = useRef(null);
   const dispatch = useDispatch();
 
-  const editTodo = () => {
+  // const editTodo = () => {
+  //   dispatch(updateTodo({ id: todo.id, title: todoMsg }));
+  //   setIsTodoEditable(false);
+  // };
+
+  const saveTodo = () => {
+    if (msg.trim() === "") return; // Avoid saving empty todos
+    setMsg(msg);  // ab new todo mess in (msg) hum wapas todoMsg me set kar sakte hain on click of save button
+    setTodoMsg(msg);
     dispatch(updateTodo({ id: todo.id, title: todoMsg }));
-    todoRef.current.focus();
     setIsTodoEditable(false);
+    setBtnText(() => "Add Todo");
+    setTodoMsg("");
   };
 
   const delTodo = () => {
@@ -39,8 +48,15 @@ function Todos({ todo }) {
       <button
         onClick={() => {
           if (todo.isComplete) return;
-          if (isTodoEditable) editTodo();
-          else setIsTodoEditable((prev) => !prev);
+          if (isTodoEditable) saveTodo();
+          else {
+            delTodo();
+            setIsTodoEditable((prev) => !prev);
+            inputRef.current.focus();
+            setMsg(todoMsg); // set the msg to todoMsg so that we can use it in saveTodo function
+            setTodoMsg("");
+            setBtnText(() => "Save Todo"); // change the button text to Save Todo
+          }
         }}
       >
         {isTodoEditable ? "📁" : "✏️"}

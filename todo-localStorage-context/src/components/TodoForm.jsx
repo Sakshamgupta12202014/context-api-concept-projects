@@ -9,7 +9,10 @@ function TodoForm() {
 
   const handleSubmit = (e) => {
 
-    if(todo.trim === "") return   
+    if(todo.trim() === ""){ 
+      alert("Please enter a todo");
+      return; // if the todo is empty then return
+    }
 
     // call addTodo fnctn ---> further call setTodos useState funtn ---> change in todos will run the useEffect ---> will store the new array of todos in the local storage (end goal hai)
 
