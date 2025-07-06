@@ -43,4 +43,5 @@
 .nav-item .active {
   color: #00bcd4;
   border-bottom: 2px solid #00bcd4;
+  /* background-color: rgb(17, 111, 194); */
 }

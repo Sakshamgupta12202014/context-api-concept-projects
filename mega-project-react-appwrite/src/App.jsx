@@ -13,8 +13,8 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    authService
-      .getCurrentUser()
+    // it returns a promise so we have to use .then() & .catch()
+    authService.getCurrentUser()
       .then((userData) => {
         if (userData) {
           dispatch(login({ userData }));
@@ -49,4 +49,3 @@ function App() {
 export default App;
 
 // console.log(import.meta.env.VITE_APPWRITE_URL)  // way to access environment variables in Vite
-
