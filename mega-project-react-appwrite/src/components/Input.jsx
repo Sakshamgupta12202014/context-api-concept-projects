@@ -1,7 +1,7 @@
 import React, { forwardRef, useId } from "react";
 
 const Input = forwardRef(function Input(
-  { label, type = "text", placeholder = "type here", ...props },
+  { label, type = "text", ...props },
   ref
 ) {
   // Using forwardRef to allow parent components to pass a ref to the input
@@ -16,7 +16,8 @@ const Input = forwardRef(function Input(
       )}
       <input
         type={type}
-        placeholder={placeholder}
+        {...props} // spread operator to pass all other props like value, onChange, etc.
+        // placeholder={placeholder}
         className="input"
         ref={ref}
         id={id}

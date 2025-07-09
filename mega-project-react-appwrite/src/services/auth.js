@@ -30,6 +30,7 @@ export class AuthService {
 
   async login({ email, password }) {
     try {
+      //On success: returns a session object (with session/user info).
       const userLogin = await this.account.createEmailPasswordSession(
         email,
         password
