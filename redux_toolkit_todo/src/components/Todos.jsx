@@ -53,9 +53,9 @@ function Todos({ todo , msg, inputRef, setMsg, setBtnText}) {
             delTodo();
             setIsTodoEditable((prev) => !prev);
             inputRef.current.focus();
-            setMsg(todoMsg); // set the msg to todoMsg so that we can use it in saveTodo function
+            setMsg(todoMsg); // set the msg to todoMsg so that we can use it in saveTodo function this msg is copied to the input field which is in AddTodo component
             setTodoMsg("");
-            setBtnText(() => "Save Todo"); // change the button text to Save Todo
+            setBtnText(() => "Save Todo"); // change the button text to Save Todo this button is in AddTodo component
           }
         }}
       >

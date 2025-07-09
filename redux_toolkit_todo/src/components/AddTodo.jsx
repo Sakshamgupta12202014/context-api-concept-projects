@@ -91,7 +91,13 @@ function AddTodo() {
         {/* Loop the todos array to render all the todos */}
         {todos.map((todo) => (
           <div key={todo.id}>
-            <Todos todo={todo} inputRef={inputRef} msg={msg} setMsg={setMsg} setBtnText={setBtnText}/>
+            <Todos
+              todo={todo}
+              inputRef={inputRef}
+              msg={msg}
+              setMsg={setMsg}
+              setBtnText={setBtnText}
+            />
           </div>
         ))}
       </div>
